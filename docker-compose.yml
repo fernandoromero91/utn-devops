@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  web:
+    build: ./web
+    ports:
+      - "8081:80"
+    depends_on:
+      - db
+      - backend
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - devops-network
+
+  db:
+    build: ./db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: yari
+    ports:
+      - "27017:27017"
+    volumes:
+      - db_data:/data/db
+    networks:
+      - devops-network
+
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      MONGO_URI: mongodb://root:yari@db:27017/utn_devops
+    networks:
+      - devops-network
+
+volumes:
+  db_data:
+
+networks:
+  devops-network:
+    driver: bridge

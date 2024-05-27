@@ -1,10 +1,10 @@
-# Proyecto Vagrant con Angular y Apache
+# Proyecto Vagrant/docker
 
-Este proyecto proporciona un entorno de desarrollo configurado con Vagrant para una aplicación Angular servida mediante Apache.
+Este proyecto proporciona un entorno de desarrollo configurado con Vagrant levantando 3 docker para un app angular, back nodejs, y una base mongo. mediante un docker compose.
 
 ## Información del Curso
 
-Este proyecto es para la actividad número 1 del curso "DevOps, Integración y Agilidad Continua".
+Este proyecto es para la actividad número 2 del curso "DevOps, Integración y Agilidad Continua".
 
 ### Miembros del Grupo
 
@@ -27,10 +27,10 @@ Este proyecto es para la actividad número 1 del curso "DevOps, Integración y A
     git clone https://github.com/fernandoromero91/utn-devops
     cd tu_repositorio
     ```
-2. Cambia a la rama `unidad-1-vagrant`:
+2. Cambia a la rama `unidad-2-docker`:
 
     ```sh
-    git checkout unidad-1-vagrant
+    git checkout unidad-2-docker
     ```
 
 ## Uso
@@ -41,10 +41,27 @@ Este proyecto es para la actividad número 1 del curso "DevOps, Integración y A
     vagrant up
     ```
 
+1. Ingresa a la máquina virtual:
+
+    ```sh
+    vagrant ssh
+    ```
+
+1. Ir a la carpeta vagrant:
+
+    ```sh
+    cd /vagrant
+    ```	
+
+1. Correr el docker-compose:
+
+    ```sh
+    sudo docker-compose up --build -d
+    ```	
 2. Accede a la aplicación Angular en tu navegador web:
 
     ```
-    http://localhost:8080
+    http://localhost:8081
     ```
 
 ## Estructura del Proyecto
@@ -52,15 +69,17 @@ Este proyecto es para la actividad número 1 del curso "DevOps, Integración y A
 - `Vagrantfile`: Configuración de Vagrant para la máquina virtual.
 - `setup.sh`: Script de aprovisionamiento para instalar dependencias y configurar el entorno.
 - `Configs/devops.site.conf`: Archivo de configuración de Apache.
+- `backend/dockerfile`: Archivo para configurar docker de back.
+- `db/dockerfile`: Archivo para configurar docker de base mongo.
+- `web/dockerfile`: Archivo para configurar docker de front web angular.
 
 ## Script de Aprovisionamiento
 
 El script `setup.sh` realiza las siguientes tareas:
 
-1. Actualiza los paquetes y dependencias necesarias.
-2. Instala Node.js, npm y Apache.
-3. Configura Apache para servir la aplicación Angular.
-4. Clona el repositorio de la aplicación Angular y construye el proyecto.
+1. Eliminia instalaciones para la actividad 1.
+2. Instala dependencias necesarias para docker.
+3. Inicializa docker.
 
 
 ## Contribuciones
