@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        nodejs "NodeJS LTS"
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -8,12 +12,6 @@ pipeline {
             }
         }
         stage('Build') {
-            agent {
-                docker {
-                    image 'node:lts'
-                    args '-u root:root'
-                }
-            }
             steps {
                 sh 'npm install'
                 sh 'npm run build'
